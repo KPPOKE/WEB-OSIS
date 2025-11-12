@@ -6,6 +6,8 @@
       "maxDuration": 10
     }
   },
+  "buildCommand": "composer install --no-dev --prefer-dist --optimize-autoloader",
+  "outputDirectory": "public/build",
   "routes": [
     { "src": "^/assets/(.*)$", "dest": "/public/assets/$1" },
     { "src": "^/storage/(.*)$", "dest": "/public/storage/$1" },
