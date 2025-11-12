@@ -7,7 +7,7 @@
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1 class="heading-title">Events</h1>
+              <h1 class="heading-title">Acara</h1>
               <p class="mb-0">
                 Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo
                 odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum
@@ -21,8 +21,8 @@
       <nav class="breadcrumbs">
         <div class="container">
           <ol>
-            <li><a href="/">Home</a></li>
-            <li class="current">Events</li>
+            <li><a href="/">Beranda</a></li>
+            <li class="current">Acara</li>
           </ol>
         </div>
       </nav>
@@ -36,79 +36,35 @@
         <div class="row g-4">
           <div class="col-lg-8">
             <div class="events-list">
-              <div class="event-item">
-                <div class="event-date">
-                  <span class="day">15</span>
-                  <span class="month">JUN</span>
-                </div>
-                <div class="event-content">
-                  <h3>Annual Science Fair Exhibition</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> 09:00 AM - 04:00 PM</p>
-                    <p><i class="bi bi-geo-alt"></i> Main Campus Auditorium</p>
+              @forelse($events as $event)
+                <div class="event-item">
+                  <div class="event-date">
+                    <span class="day">{{ optional($event->starts_at)->format('d') }}</span>
+                    <span class="month">{{ strtoupper(optional($event->starts_at)->translatedFormat('M')) }}</span>
                   </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin gravida dolor sit amet lacus accumsan.</p>
-                  <a href="#" class="btn-event">Learn More <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div><!-- End Event Item -->
-
-              <div class="event-item">
-                <div class="event-date">
-                  <span class="day">22</span>
-                  <span class="month">JUN</span>
-                </div>
-                <div class="event-content">
-                  <h3>Parent-Teacher Conference</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> 01:00 PM - 06:00 PM</p>
-                    <p><i class="bi bi-geo-alt"></i> Multiple Classrooms</p>
+                  <div class="event-content">
+                    <h3>{{ $event->title }}</h3>
+                    <div class="event-meta">
+                      <p><i class="bi bi-clock"></i> {{ optional($event->starts_at)->format('H:i') }}
+                        @if($event->ends_at) - {{ optional($event->ends_at)->format('H:i') }} @endif
+                      </p>
+                      @if($event->location)
+                        <p><i class="bi bi-geo-alt"></i> {{ $event->location }}</p>
+                      @endif
+                    </div>
+                    <p>{{ \Illuminate\Support\Str::limit($event->description, 180) }}</p>
+                    <div class="event-actions">
+                      <a href="/event/{{ $event->slug }}" class="btn-event">Selengkapnya <i class="bi bi-arrow-right"></i></a>
+                    </div>
                   </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Proin sagittis nisl rhoncus mattis rhoncus.</p>
-                  <a href="#" class="btn-event">Learn More <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div><!-- End Event Item -->
-
-              <div class="event-item">
-                <div class="event-date">
-                  <span class="day">30</span>
-                  <span class="month">JUN</span>
-                </div>
-                <div class="event-content">
-                  <h3>Summer Sports Tournament Final</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> 02:30 PM - 05:30 PM</p>
-                    <p><i class="bi bi-geo-alt"></i> Sports Complex</p>
-                  </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
-                  <a href="#" class="btn-event">Learn More <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div><!-- End Event Item -->
-
-              <div class="event-item">
-                <div class="event-date">
-                  <span class="day">05</span>
-                  <span class="month">JUL</span>
-                </div>
-                <div class="event-content">
-                  <h3>Graduation Ceremony Class of 2023</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> 10:00 AM - 01:00 PM</p>
-                    <p><i class="bi bi-geo-alt"></i> Central Auditorium</p>
-                  </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ipsum id orci porta dapibus. Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ante ipsum primis.</p>
-                  <a href="#" class="btn-event">Learn More <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div><!-- End Event Item -->
+                </div><!-- End Event Item -->
+              @empty
+                <div class="alert alert-info">Belum ada acara.</div>
+              @endforelse
             </div>
 
-            <div class="pagination-wrapper">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="bi bi-chevron-left"></i></a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
-              </ul>
+            <div class="mt-4">
+              {{ $events->links() }}
             </div>
           </div>
 
@@ -174,7 +130,7 @@
               <div class="sidebar-item featured-event">
                 <h3 class="sidebar-title">Featured Event</h3>
                 <div class="featured-event-content">
-                  <img src="assets/img/education/events-5.webp" alt="Featured Event" class="img-fluid">
+                  <img src="{{ asset('assets/img/education/events-5.webp') }}" alt="Featured Event" class="img-fluid" loading="lazy" decoding="async">
                   <h4>Annual Arts Festival</h4>
                   <p><i class="bi bi-calendar-event"></i> July 15-17, 2023</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus consectetur adipiscing elit.</p>

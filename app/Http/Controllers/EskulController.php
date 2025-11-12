@@ -11,7 +11,7 @@ class EskulController extends Controller
     {
      $eskuls = Eskul::all(); // ambil data
         return view('eskul', [
-            'title'  => 'Eskul',   
+            'title'  => 'Ekskul',   
             'eskuls' => $eskuls,
         ]);
     }

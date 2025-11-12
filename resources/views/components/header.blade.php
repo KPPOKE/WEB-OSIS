@@ -12,7 +12,7 @@
         <ul>
           <li><a href="/" class="active">Home</a></li>
           <li><a href="about">About</a></li>
-          <li><a href="/eskul">extracurricular</a></li>
+          <li><a href="/ekskul">Ekskul</a></li>
           <li><a href="/news">News</a></li>
           <li><a href="/event">Events</a></li>
           <li><a href="/contact"><span>Contact</a></li>

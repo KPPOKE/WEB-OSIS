@@ -121,12 +121,16 @@
     /**
      * Initiate Pure Counter
      */
-    new PureCounter();
+    if (document.querySelector('.purecounter')) {
+        new PureCounter();
+    }
 
     /**
      * Initiate glightbox
      */
-    const glightbox = GLightbox({
-        selector: ".glightbox",
-    });
+    if (document.querySelector('.glightbox')) {
+        const glightbox = GLightbox({
+            selector: ".glightbox",
+        });
+    }
 })();
